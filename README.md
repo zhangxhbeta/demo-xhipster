@@ -4,11 +4,11 @@
 
 ## 1.0建设目标
 
+- [ ] 解决公共模块难于组件化的问题 - :fire:
+
+- [ ] 解决数据库的sql脚本管理问题 - :metal:
+
 - [ ] 以 Spring boot + Thymeleaf + Hibernate/myBatis 做为基准，兼容 Struts2 代码
-
-- [ ] 解决数据库的sql脚本管理问题
-
-- [ ] 解决公共模块难于组件化的问题
 
 - [ ] 提供 Profile，适应部署、开发、测试等不同的环境
 
