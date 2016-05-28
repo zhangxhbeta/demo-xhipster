@@ -14,6 +14,6 @@ public class Bar {
     @RequestMapping("/bar")
     public String hello(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);
-        return "hello";
+        return "bar";
     }
 }
