@@ -44,14 +44,14 @@ public class AsyncSpringLiquibase extends SpringLiquibase {
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT, Constants.SPRING_PROFILE_HEROKU)) {
             taskExecutor.execute(() -> {
                 try {
-                    log.warn("Starting Liquibase asynchronously, your database might not be ready at startup!");
+                    log.warn("异步启动 Liquibase 以缩短启动时间, 可能会导致一些些的延迟后数据库才被正确配置(开发环境无影响)!");
                     initDb();
                 } catch (LiquibaseException e) {
-                    log.error("Liquibase could not start correctly, your database is NOT ready: {}", e.getMessage(), e);
+                    log.error("Liquibase 运行出错, 数据库未正确配置: {}", e.getMessage(), e);
                 }
             });
         } else {
-            log.debug("Starting Liquibase synchronously");
+            log.debug("同步运行 Liquibase");
             initDb();
         }
     }

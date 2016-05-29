@@ -54,14 +54,14 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
 
     @PostConstruct
     public void init() {
-        log.debug("Registering JVM gauges");
+        log.debug("注册 JVM gauges");
         metricRegistry.register(PROP_METRIC_REG_JVM_MEMORY, new MemoryUsageGaugeSet());
         metricRegistry.register(PROP_METRIC_REG_JVM_GARBAGE, new GarbageCollectorMetricSet());
         metricRegistry.register(PROP_METRIC_REG_JVM_THREADS, new ThreadStatesGaugeSet());
         metricRegistry.register(PROP_METRIC_REG_JVM_FILES, new FileDescriptorRatioGauge());
         metricRegistry.register(PROP_METRIC_REG_JVM_BUFFERS, new BufferPoolMetricSet(ManagementFactory.getPlatformMBeanServer()));
         if (jHipsterProperties.getMetrics().getJmx().isEnabled()) {
-            log.debug("Initializing Metrics JMX reporting");
+            log.debug("初始化 Metrics JMX 报告");
             JmxReporter jmxReporter = JmxReporter.forRegistry(metricRegistry).build();
             jmxReporter.start();
         }
@@ -83,7 +83,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
         @PostConstruct
         private void init() {
             if (jHipsterProperties.getMetrics().getGraphite().isEnabled()) {
-                log.info("Initializing Metrics Graphite reporting");
+                log.info("初始化 Metrics Graphite 报告");
                 String graphiteHost = jHipsterProperties.getMetrics().getGraphite().getHost();
                 Integer graphitePort = jHipsterProperties.getMetrics().getGraphite().getPort();
                 String graphitePrefix = jHipsterProperties.getMetrics().getGraphite().getPrefix();
@@ -114,7 +114,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
         @PostConstruct
         private void init() {
             if (jHipsterProperties.getMetrics().getSpark().isEnabled()) {
-                log.info("Initializing Metrics Spark reporting");
+                log.info("初始化 Metrics Spark 报告");
                 String sparkHost = jHipsterProperties.getMetrics().getSpark().getHost();
                 Integer sparkPort = jHipsterProperties.getMetrics().getSpark().getPort();
                 SparkReporter sparkReporter = SparkReporter.forRegistry(metricRegistry)

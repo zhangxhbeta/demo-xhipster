@@ -44,10 +44,10 @@ public class DatabaseConfiguration {
     @Bean(destroyMethod = "close")
     @ConditionalOnExpression("#{!environment.acceptsProfiles('cloud') && !environment.acceptsProfiles('heroku')}")
     public DataSource dataSource(DataSourceProperties dataSourceProperties, JHipsterProperties jHipsterProperties) {
-        log.debug("Configuring Datasource");
+        log.debug("配置数据源");
         if (dataSourceProperties.getUrl() == null) {
-            log.error("Your database connection pool configuration is incorrect! The application" +
-                    " cannot start. Please check your Spring profile, current profiles are: {}",
+            log.error("数据源连接池配置错误! 应用" +
+                    "无法启动, 请一并也检查一下 Spring profile 配置, 当前使用 profiles: {}",
                 Arrays.toString(env.getActiveProfiles()));
 
             throw new ApplicationContextException("Database connection pool is not configured correctly");
@@ -102,13 +102,13 @@ public class DatabaseConfiguration {
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_FAST)) {
             if ("org.h2.jdbcx.JdbcDataSource".equals(dataSourceProperties.getDriverClassName())) {
                 liquibase.setShouldRun(true);
-                log.warn("Using '{}' profile with H2 database in memory is not optimal, you should consider switching to" +
-                    " MySQL or Postgresql to avoid rebuilding your database upon each start.", Constants.SPRING_PROFILE_FAST);
+                log.warn("'{}' profile 与 H2 内存模式数据库一起用不是太理想, 你应该考虑切换到" +
+                    " MySQL 或者 Postgresql, 以免每次启动都重建整个数据库, 极大的浪费开发时间", Constants.SPRING_PROFILE_FAST);
             } else {
                 liquibase.setShouldRun(false);
             }
         } else {
-            log.debug("Configuring Liquibase");
+            log.debug("配置 Liquibase");
         }
         return liquibase;
     }

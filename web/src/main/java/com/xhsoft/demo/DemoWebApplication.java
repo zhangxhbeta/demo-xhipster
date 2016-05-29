@@ -45,21 +45,21 @@ public class DemoWebApplication {
     @PostConstruct
     public void initApplication() throws IOException {
         if (env.getActiveProfiles().length == 0) {
-            log.warn("No Spring profile configured, running with default configuration");
+            log.warn("没有配置 Spring profile, 采用默认配置运行");
         } else {
-            log.info("Running with Spring profile(s) : {}", Arrays.toString(env.getActiveProfiles()));
+            log.info("开始运行, Spring profile(s) : {}", Arrays.toString(env.getActiveProfiles()));
             Collection<String> activeProfiles = Arrays.asList(env.getActiveProfiles());
             if (activeProfiles.contains(Constants.SPRING_PROFILE_DEVELOPMENT) && activeProfiles.contains(Constants.SPRING_PROFILE_PRODUCTION)) {
-                log.error("You have misconfigured your application! " +
-                        "It should not run with both the 'dev' and 'prod' profiles at the same time.");
+                log.error("错误配置!" +
+                        "不能同时指定 'dev' 和 'prod' profile 来运行");
             }
             if (activeProfiles.contains(Constants.SPRING_PROFILE_PRODUCTION) && activeProfiles.contains(Constants.SPRING_PROFILE_FAST)) {
-                log.error("You have misconfigured your application! " +
-                        "It should not run with both the 'prod' and 'fast' profiles at the same time.");
+                log.error("错误配置!" +
+                        "不能同时指定 'fast' 和 'prod' profile 来运行");
             }
             if (activeProfiles.contains(Constants.SPRING_PROFILE_DEVELOPMENT) && activeProfiles.contains(Constants.SPRING_PROFILE_CLOUD)) {
-                log.error("You have misconfigured your application! " +
-                        "It should not run with both the 'dev' and 'cloud' profiles at the same time.");
+                log.error("错误配置!" +
+                        "不能同时指定 'dev' 和 'cloud' profile 来运行");
             }
         }
     }

@@ -42,7 +42,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-        log.info("Web application configuration, using profiles: {}", Arrays.toString(env.getActiveProfiles()));
+        log.info("开始 Web 应用配置, profiles: {}", Arrays.toString(env.getActiveProfiles()));
         EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
         if (!env.acceptsProfiles(Constants.SPRING_PROFILE_FAST)) {
             initMetrics(servletContext, disps);
@@ -54,7 +54,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT)) {
             initH2Console(servletContext);
         }
-        log.info("Web application fully configured");
+        log.info("Web 应用已配置完成");
     }
 
     /**
@@ -76,7 +76,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
     private void initStaticResourcesProductionFilter(ServletContext servletContext,
                                                      EnumSet<DispatcherType> disps) {
 
-        log.debug("Registering static resources production Filter");
+        log.debug("产品环境时注册静态资源过滤器,将静态资源打包");
         FilterRegistration.Dynamic staticResourcesProductionFilter =
             servletContext.addFilter("staticResourcesProductionFilter",
                 new StaticResourcesProductionFilter());
@@ -93,7 +93,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
      */
     private void initCachingHttpHeadersFilter(ServletContext servletContext,
                                               EnumSet<DispatcherType> disps) {
-        log.debug("Registering Caching HTTP Headers Filter");
+        log.debug("产品环境时注册静态资源缓存 HTTP 头过滤器");
         FilterRegistration.Dynamic cachingHttpHeadersFilter =
             servletContext.addFilter("cachingHttpHeadersFilter",
                 new CachingHttpHeadersFilter(env));
@@ -107,20 +107,20 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
      * Initializes Metrics.
      */
     private void initMetrics(ServletContext servletContext, EnumSet<DispatcherType> disps) {
-        log.debug("Initializing Metrics registries");
+        log.debug("开始初始化 Metrics 注册");
         servletContext.setAttribute(InstrumentedFilter.REGISTRY_ATTRIBUTE,
             metricRegistry);
         servletContext.setAttribute(MetricsServlet.METRICS_REGISTRY,
             metricRegistry);
 
-        log.debug("Registering Metrics Filter");
+        log.debug("注册 Metrics 过滤器");
         FilterRegistration.Dynamic metricsFilter = servletContext.addFilter("webappMetricsFilter",
             new InstrumentedFilter());
 
         metricsFilter.addMappingForUrlPatterns(disps, true, "/*");
         metricsFilter.setAsyncSupported(true);
 
-        log.debug("Registering Metrics Servlet");
+        log.debug("注册 Metrics Servlet");
         ServletRegistration.Dynamic metricsAdminServlet =
             servletContext.addServlet("metricsServlet", new MetricsServlet());
 
@@ -145,7 +145,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
      * Initializes H2 console
      */
     private void initH2Console(ServletContext servletContext) {
-        log.debug("Initialize H2 console");
+        log.debug("初始化 H2 控制台");
         ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", new org.h2.server.web.WebServlet());
         h2ConsoleServlet.addMapping("/h2-console/*");
         h2ConsoleServlet.setInitParameter("-properties", "src/main/resources");
