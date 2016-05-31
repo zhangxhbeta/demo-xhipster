@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 测试 Controller
+ * Created by zhangxh on 16/5/30.
  */
 @Controller
-public class Foo {
+public class HelloJsp {
 
-    @RequestMapping("/foo")
+    @RequestMapping("/hellojsp")
     public String hello(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);
-        return "foo";
+        return "hello";
     }
 }

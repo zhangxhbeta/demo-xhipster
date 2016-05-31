@@ -23,7 +23,7 @@
 
         <dependency>
             <groupId>com.xhsoft.demo</groupId>
-            <artifactId>foo</artifactId>
+            <artifactId>foo-spring</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
