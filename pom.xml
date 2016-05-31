@@ -11,6 +11,7 @@
     <modules>
         <module>foo</module>
         <module>foo-spring</module>
+        <module>foo-springsession</module>
         <module>bar</module>
         <module>web</module>
     </modules>
