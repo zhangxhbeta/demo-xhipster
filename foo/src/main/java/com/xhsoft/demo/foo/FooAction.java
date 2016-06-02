@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
  */
 @Action(value = "foo", results = {
         @Result(name = "result", location = "/foo.jsp") })
-@Namespace("foo")
+@Namespace("/foo")
 @Controller
 @Scope("prototype")
 public class FooAction extends ActionSupport {
